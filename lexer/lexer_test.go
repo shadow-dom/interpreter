@@ -37,7 +37,7 @@ func TestNextToken(t *testing.T) {
 		{token.IDENT, "x"},
 		{token.COMMA, ","},
 		{token.IDENT, "y"},
-		{token.RBRACE, ")"},
+		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
 		{token.IDENT, "x"},
 		{token.PLUS, "+"},
