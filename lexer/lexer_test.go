@@ -71,8 +71,4 @@ func TestNextToken(t *testing.T) {
 			t.Fatalf("tests[%d] - literal wrong. expected=%q actual=%q", i, tt.expectedLiteral, tok.Literal)
 		}
 	}
-
-    func (l *Lexer) readNumber() string {
-        position
-    }
 }
