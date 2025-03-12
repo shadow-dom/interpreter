@@ -2,6 +2,7 @@ package lexer
 
 import (
 	"interpreter/token"
+	"os"
 	"testing"
 )
 
@@ -11,20 +12,53 @@ type TokenTest struct {
 }
 
 func TestNextToken(t *testing.T) {
-	input := `=+(){},;`
+	input, err := os.ReadFile("./samples/adding.monkey")
 
-	tests := []TokenTest{
-		{token.ASSIGN, "="},
-		{token.PLUS, "+"},
-		{token.LPAREN, "("},
-		{token.RPAREN, ")"},
-		{token.LBRACE, "{"},
-		{token.RBRACE, "}"},
-		{token.COMMA, ","},
-		{token.SEMICOLON, ";"},
+	if err != nil {
+		t.Fatalf("could not read sample code for adding.monkey.")
 	}
 
-	l := New(input)
+	tests := []TokenTest{
+		{token.LET, "let"},
+		{token.IDENT, "five"},
+		{token.ASSIGN, "="},
+		{token.INT, "5"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "ten"},
+		{token.ASSIGN, "="},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "add"},
+		{token.ASSIGN, "="},
+		{token.FUNCTION, "fn"},
+		{token.LPAREN, "("},
+		{token.IDENT, "x"},
+		{token.COMMA, ","},
+		{token.IDENT, "y"},
+		{token.RBRACE, ")"},
+		{token.LBRACE, "{"},
+		{token.IDENT, "x"},
+		{token.PLUS, "+"},
+		{token.IDENT, "y"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "result"},
+		{token.ASSIGN, "="},
+		{token.IDENT, "add"},
+		{token.LPAREN, "("},
+		{token.IDENT, "five"},
+		{token.COMMA, ","},
+		{token.IDENT, "ten"},
+		{token.RPAREN, ")"},
+		{token.SEMICOLON, ";"},
+		{token.EOF, ""},
+	}
+
+	l := New(string(input))
 
 	for i, tt := range tests {
 		tok := l.NextToken()
@@ -37,4 +71,8 @@ func TestNextToken(t *testing.T) {
 			t.Fatalf("tests[%d] - literal wrong. expected=%q actual=%q", i, tt.expectedLiteral, tok.Literal)
 		}
 	}
+
+    func (l *Lexer) readNumber() string {
+        position
+    }
 }
